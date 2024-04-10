@@ -14,12 +14,18 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List(networkManager.posts) { post in
-                Text(post.title)
+                NavigationLink(destination: DetailView(url: post.url)) {
+                    HStack {
+                        Text(String(post.points))
+                        Text(post.title)
+                    }
+                }
             }
-            .navigationTitle("HackNewsApp")
+            .navigationBarTitle("HackNewsApp")
         }
-        .onAppear{
+        .onAppear {
             self.networkManager.fetchData()
+        }
     }
 }
 
@@ -28,7 +34,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-let posts = [
-    Post(id: "1", title: "List of News")
-]
